@@ -23,6 +23,29 @@ final class HtmlElement extends Tester\TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider emptyTags
+	 */
+	public function testEmptyTag(string $tag) {
+		Assert::same(
+			'',
+			(new Markup\HtmlElement(
+				$tag,
+				new Markup\FakeAttributes(''),
+				new Markup\FakeElement('')
+			))->markup()
+		);
+	}
+
+	protected function emptyTags() {
+		return [
+			[''],
+			['	'],
+			[' '],
+			['0'], // tag can't be numeric
+		];
+	}
+
 	public function testPairTagWithoutAttributes() {
 		Assert::same(
 			'<p>Paragraph</p>',

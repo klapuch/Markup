@@ -6,6 +6,7 @@ namespace Klapuch\Markup;
  * Element in a HTML format
  */
 final class HtmlElement implements Element {
+	private const INVALID_MARKUP = '';
 	private $tag;
 	private $attributes;
 	private $children;
@@ -21,7 +22,7 @@ final class HtmlElement implements Element {
 	}
 
 	public function markup(): string {
-		return trim(
+		return trim($this->tag) ? trim(
 			$this->withoutDeclaration(
 				(new \SimpleXMLElement(
 					sprintf(
@@ -32,7 +33,7 @@ final class HtmlElement implements Element {
 					)
 				))->asXML()
 			)
-		);
+		) : self::INVALID_MARKUP;
 	}
 
 	/**
