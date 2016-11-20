@@ -19,6 +19,7 @@ final class HtmlAttributes extends Tester\TestCase {
 				new Markup\FakeAttribute('type="text"'), // repetitive attribute
 				new Markup\FakeAttribute('name="surname"'), // repetitive value
 				new Markup\FakeAttribute('class="surname"'), // repetitive value
+				new Markup\FakeAttribute('TYPE="number"'), // repetitive attribute
 				new Markup\FakeAttribute('type="email"') // repetitive attribute
 			))->pairs()
 		);
