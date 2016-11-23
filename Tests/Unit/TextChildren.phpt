@@ -11,13 +11,13 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-final class TextChildren extends Tester\TestCase {
+final class TextElement extends Tester\TestCase {
 	public function testElementContainingOnlyText() {
 		Assert::same(
 			'Cool',
-			(new Markup\TextChildren('<p class="danger"><p>Cool</p>'))->markup()
+			(new Markup\TextElement('<p class="danger"><p>Cool</p>'))->markup()
 		);
 	}
 }
 
-(new TextChildren())->run();
+(new TextElement())->run();
