@@ -30,7 +30,10 @@ final class HtmlAttribute extends Tester\TestCase {
 	 * @dataProvider emptyAttributes
 	 */
 	public function testEmptyAttributes(string $attribute, string $value) {
-		Assert::same('', (new Markup\HtmlAttribute($attribute, $value))->pair());
+		Assert::same(
+			'',
+			(new Markup\HtmlAttribute($attribute, $value))->pair()
+		);
 	}
 
 	public function testPassedNumericAttribute() {

@@ -11,48 +11,43 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-final class HtmlElement extends Tester\TestCase {
+final class NormalizedElement extends Tester\TestCase {
 	public function testPairTagWithAttributes() {
 		Assert::same(
 			'<p class="danger">Paragraph</p>',
-			(new Markup\HtmlElement(
-				'p',
-				new Markup\FakeAttributes('class="danger"'),
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('p class="danger"', 'p'),
 				new Markup\FakeElement('Paragraph')
 			))->markup()
 		);
-	}
-
-	/**
-	 * @dataProvider emptyTags
-	 */
-	public function testEmptyTag(string $tag) {
-		Assert::same(
-			'',
-			(new Markup\HtmlElement(
-				$tag,
-				new Markup\FakeAttributes(''),
-				new Markup\FakeElement('')
-			))->markup()
-		);
-	}
-
-	protected function emptyTags() {
-		return [
-			[''],
-			['	'],
-			[' '],
-			['0'], // tag can't be numeric
-		];
 	}
 
 	public function testPairTagWithoutAttributes() {
 		Assert::same(
 			'<p>Paragraph</p>',
-			(new Markup\HtmlElement(
-				'p',
-				new Markup\FakeAttributes(''),
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('p', 'p'),
 				new Markup\FakeElement('Paragraph')
+			))->markup()
+		);
+	}
+
+	public function testNestedElement() {
+		Assert::same(
+			'<p><em>foo</em></p>',
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('p', 'p'),
+				new Markup\FakeElement('<em>foo</em>')
+			))->markup()
+		);
+	}
+
+	public function testNormalizedNestedElement() {
+		Assert::same(
+			'<p><em/></p>',
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('p', 'p'),
+				new Markup\FakeElement('<em></em>')
 			))->markup()
 		);
 	}
@@ -60,9 +55,8 @@ final class HtmlElement extends Tester\TestCase {
 	public function testSingleTagWithoutAttributes() {
 		Assert::same(
 			'<hr/>',
-			(new Markup\HtmlElement(
-				'hr',
-				new Markup\FakeAttributes(''),
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('hr', 'hr'),
 				new Markup\FakeElement('')
 			))->markup()
 		);
@@ -71,9 +65,8 @@ final class HtmlElement extends Tester\TestCase {
 	public function testSingleTagWithAttributes() {
 		Assert::same(
 			'<hr class="cool"/>',
-			(new Markup\HtmlElement(
-				'hr',
-				new Markup\FakeAttributes('class="cool"'),
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('hr class="cool"', 'hr'),
 				new Markup\FakeElement('')
 			))->markup()
 		);
@@ -83,23 +76,20 @@ final class HtmlElement extends Tester\TestCase {
 		Assert::noError(
 			function() {
 				new \SimpleXMLElement(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes('class="danger"'),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p class="danger"', 'p'),
 						new Markup\FakeElement('Paragraph')
 					))->markup()
 				);
 				new \SimpleXMLElement(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes(''),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p', 'p'),
 						new Markup\FakeElement('Paragraph')
 					))->markup()
 				);
 				new \SimpleXMLElement(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes(''),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p', 'p'),
 						new Markup\FakeElement('')
 					))->markup()
 				);
@@ -112,23 +102,20 @@ final class HtmlElement extends Tester\TestCase {
 			function() {
 				$dom = new \DOMDocument();
 				$dom->loadHTML(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes('class="danger"'),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p class="danger"', 'p'),
 						new Markup\FakeElement('Paragraph')
 					))->markup()
 				);
 				$dom->loadHTML(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes(''),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p', 'p'),
 						new Markup\FakeElement('Paragraph')
 					))->markup()
 				);
 				$dom->loadHTML(
-					(new Markup\HtmlElement(
-						'p',
-						new Markup\FakeAttributes(''),
+					(new Markup\NormalizedElement(
+						new Markup\FakeTag('p', 'p'),
 						new Markup\FakeElement('')
 					))->markup()
 				);
@@ -137,4 +124,4 @@ final class HtmlElement extends Tester\TestCase {
 	}
 }
 
-(new HtmlElement())->run();
+(new NormalizedElement())->run();

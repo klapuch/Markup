@@ -3,37 +3,27 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * Element in a HTML format
+ * Normalized element in sense of <p></p> becomes </p>
  */
-final class HtmlElement implements Element {
-	private const INVALID_MARKUP = '';
+final class NormalizedElement implements Element {
 	private $tag;
-	private $attributes;
 	private $children;
 
-	public function __construct(
-		string $tag,
-		Attributes $attributes,
-		Element $children
-	) {
+	public function __construct(Tag $tag, Element $children) {
 		$this->tag = $tag;
-		$this->attributes = $attributes;
 		$this->children = $children;
 	}
 
 	public function markup(): string {
-		return trim($this->tag) ? trim(
+		return trim(
 			$this->withoutDeclaration(
 				(new \SimpleXMLElement(
-					sprintf(
-						'<%1$s %2$s>%3$s</%1$s>',
-						$this->tag,
-						$this->attributes->pairs(),
-						$this->children->markup()
-					)
+					$this->tag->start()
+					. $this->children->markup()
+					. $this->tag->end()
 				))->asXML()
 			)
-		) : self::INVALID_MARKUP;
+		);
 	}
 
 	/**
