@@ -16,9 +16,13 @@ final class HtmlAttribute implements Attribute {
 	}
 
 	public function pair(): string {
-		return $this->omitted($this->attribute) || $this->omitted($this->value)
-			? self::INVALID_ATTRIBUTE
-			: sprintf('%s="%s"', $this->attribute, $this->value);
+		if($this->omitted($this->attribute) || $this->omitted($this->value))
+			return self::INVALID_ATTRIBUTE;
+		return sprintf(
+			'%s="%s"',
+			$this->attribute,
+			htmlspecialchars($this->value, ENT_QUOTES | ENT_XHTML)
+		);
 	}
 
 	/**

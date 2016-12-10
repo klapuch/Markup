@@ -50,6 +50,20 @@ final class HtmlAttribute extends Tester\TestCase {
 		);
 	}
 
+	public function testEnabledXSSProtectionForValue() {
+		Assert::same(
+			'foo="&lt;&quot;&amp;&apos;&gt;"',
+			(new Markup\HtmlAttribute('foo', '<"&\'>'))->pair()
+		);
+	}
+
+	public function testDisabledXSSProtectionForName() {
+		Assert::same(
+			'<>="foo"',
+			(new Markup\HtmlAttribute('<>', 'foo'))->pair()
+		);
+	}
+
 	protected function emptyAttributes() {
 		return [
 			['attribute', ''],
