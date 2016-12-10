@@ -25,7 +25,7 @@ final class HtmlAttributes implements Attributes {
 					$this->attributes,
 					function(array $pairs, Attribute $attribute): array {
 						[$name] = explode('=', $attribute->pair());
-						$pairs[strtolower($name)] = $attribute;
+						$pairs[$name] = $attribute;
 						return $pairs;
 					},
 					self::EMPTY_PAIRS

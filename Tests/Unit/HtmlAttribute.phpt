@@ -26,6 +26,13 @@ final class HtmlAttribute extends Tester\TestCase {
 		);
 	}
 
+	public function testUnitedAttributeName() {
+		Assert::same(
+			'kůň_hihi="bar"',
+			(new Markup\HtmlAttribute('KŮŇ_Hihi', 'bar'))->pair()
+		);
+	}
+
 	/**
 	 * @dataProvider emptyAttributes
 	 */

@@ -20,7 +20,7 @@ final class HtmlAttribute implements Attribute {
 			return self::INVALID_ATTRIBUTE;
 		return sprintf(
 			'%s="%s"',
-			$this->attribute,
+			mb_strtolower($this->attribute),
 			htmlspecialchars($this->value, ENT_QUOTES | ENT_XHTML)
 		);
 	}
