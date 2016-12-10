@@ -40,11 +40,12 @@ final class HtmlAttributes extends Tester\TestCase {
 			))->pairs()
 		);
 		Assert::same(
-			'type="text" name="surname" required="true"',
+			'type="text" name="surname" required="true" nested="foo=bar"',
 			(new Markup\HtmlAttributes(
 				new Markup\FakeAttribute('type="text"'),
 				new Markup\FakeAttribute('name="surname"'),
-				new Markup\FakeAttribute('required="true"')
+				new Markup\FakeAttribute('required="true"'),
+				new Markup\FakeAttribute('nested="foo=bar"')
 			))->pairs()
 		);
 	}
