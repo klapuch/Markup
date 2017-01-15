@@ -32,7 +32,7 @@ final class HtmlTag extends Tester\TestCase {
 	/**
 	 * @dataProvider invalidTags
 	 */
-	public function testInvalidTags(string $tag) {
+	public function testThrowingOnInvalidTags(string $tag) {
 		Assert::exception(
 			function() use ($tag) {
 				(new Markup\HtmlTag(

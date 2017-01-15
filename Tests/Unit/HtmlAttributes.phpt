@@ -12,7 +12,7 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 final class HtmlAttributes extends Tester\TestCase {
-	public function testRepetitiveAttributes() {
+	public function testMatchingLastDuplication() {
 		Assert::same(
 			'type="email" name="surname" class="surname"',
 			(new Markup\HtmlAttributes(
