@@ -13,42 +13,35 @@ require __DIR__ . '/../bootstrap.php';
 
 final class HtmlTag extends Tester\TestCase {
 	public function testInvolvedAttributes() {
-		Assert::same(
-			'<p class="danger">',
-			(new Markup\HtmlTag(
-				'p',
-				new Markup\FakeAttributes('class="danger"')
-			))->start()
+		$tag = new Markup\HtmlTag('p', new Markup\FakeAttributes('class="danger"'));
+		Assert::same('<p class="danger">', $tag->start());
+		Assert::same('</p>', $tag->end());
+	}
+
+	public function testXmlTag() {
+		$tag = new Markup\HtmlTag(
+			'xsl:value-of',
+			new Markup\FakeAttributes('select="//p"')
 		);
-		Assert::same(
-			'</p>',
-			(new Markup\HtmlTag(
-				'p',
-				new Markup\FakeAttributes('class="danger"')
-			))->end()
-		);
+		Assert::same('<xsl:value-of select="//p">', $tag->start());
+		Assert::same('</xsl:value-of>', $tag->end());
 	}
 
 	/**
 	 * @dataProvider invalidTags
 	 */
-	public function testThrowingOnInvalidTags(string $tag) {
+	public function testThrowingOnInvalidTags(string $name) {
+		$tag = new Markup\HtmlTag($name, new Markup\FakeAttributes(''));
 		Assert::exception(
 			function() use ($tag) {
-				(new Markup\HtmlTag(
-					$tag,
-					new Markup\FakeAttributes('')
-				))->start();
+				$tag->start();
 			},
 			\InvalidArgumentException::class,
 			'Empty or numeric start tag is not allowed'
 		);
 		Assert::exception(
 			function() use ($tag) {
-				(new Markup\HtmlTag(
-					$tag,
-					new Markup\FakeAttributes('')
-				))->end();
+				$tag->end();
 			},
 			\InvalidArgumentException::class,
 			'Empty or numeric end tag is not allowed'
@@ -56,20 +49,9 @@ final class HtmlTag extends Tester\TestCase {
 	}
 
 	public function testNoAttributes() {
-		Assert::same(
-			'<p>',
-			(new Markup\HtmlTag(
-				'p',
-				new Markup\FakeAttributes('')
-			))->start()
-		);
-		Assert::same(
-			'</p>',
-			(new Markup\HtmlTag(
-				'p',
-				new Markup\FakeAttributes('')
-			))->end()
-		);
+		$tag = new Markup\HtmlTag('p', new Markup\FakeAttributes(''));
+		Assert::same('<p>', $tag->start());
+		Assert::same('</p>', $tag->end());
 	}
 
 	protected function invalidTags() {
