@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * Chained element behaving as a huge single one
+ * Chained element behaving as a single one
  */
 final class ChainedElement implements Element {
 	private const EMPTY_ELEMENT = '';
@@ -17,8 +17,7 @@ final class ChainedElement implements Element {
 		return array_reduce(
 			$this->elements,
 			function(string $elements, Element $element): string {
-				$elements .= $element->markup();
-				return $elements;
+				return $elements .= $element->markup();
 			},
 			self::EMPTY_ELEMENT
 		);

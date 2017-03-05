@@ -3,8 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * Element containing only safe text
- * XSS-proof
+ * XSS-proof element
  */
 final class SafeElement implements Element {
 	private $content;

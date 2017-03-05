@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * XSS safe attribute
+ * XSS-proof attribute
  */
 final class SafeAttribute implements Attribute {
 	private const INVALID_ATTRIBUTE = '';

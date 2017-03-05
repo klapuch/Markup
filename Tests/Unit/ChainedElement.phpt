@@ -22,6 +22,19 @@ final class ChainedElement extends Tester\TestCase {
 			))->markup()
 		);
 	}
+
+	public function testAllowingDuplication() {
+		Assert::same(
+			'abbcc',
+			(new Markup\ChainedElement(
+				new Markup\FakeElement('a'),
+				new Markup\FakeElement('b'),
+				new Markup\FakeElement('b'),
+				new Markup\FakeElement('c'),
+				new Markup\FakeElement('c')
+			))->markup()
+		);
+	}
 }
 
 (new ChainedElement())->run();

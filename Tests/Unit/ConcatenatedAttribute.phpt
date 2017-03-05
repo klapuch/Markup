@@ -35,6 +35,15 @@ final class ConcatenatedAttribute extends Tester\TestCase {
 		);
 	}
 
+	public function testIgnoringAttributeInAttribute() {
+		Assert::same(
+			'version="foo="bar""',
+			(new Markup\ConcatenatedAttribute(
+				new Markup\FakeAttribute('version="foo="bar""')
+			))->pair()
+		);
+	}
+
 	public function testSeparators() {
 		Assert::same(
 			'type="text"',

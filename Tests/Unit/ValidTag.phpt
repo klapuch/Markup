@@ -12,13 +12,13 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 final class ValidTag extends Tester\TestCase {
-	public function testInvolvedAttributes() {
+	public function testPassingOnInvolvedAttributes() {
 		$tag = new Markup\ValidTag('p', new Markup\FakeAttribute('class="danger"'));
 		Assert::same('<p class="danger">', $tag->start());
 		Assert::same('</p>', $tag->end());
 	}
 
-	public function testNamespaceTag() {
+	public function testPassingOnNamespaceTag() {
 		$tag = new Markup\ValidTag(
 			'xsl:value-of',
 			new Markup\FakeAttribute('select="//p"')
@@ -48,7 +48,7 @@ final class ValidTag extends Tester\TestCase {
 		);
 	}
 
-	public function testNoAttributes() {
+	public function testPassingNoAttributes() {
 		$tag = new Markup\ValidTag('p', new Markup\FakeAttribute(''));
 		Assert::same('<p>', $tag->start());
 		Assert::same('</p>', $tag->end());

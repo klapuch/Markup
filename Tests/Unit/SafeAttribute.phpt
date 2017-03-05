@@ -19,14 +19,14 @@ final class SafeAttribute extends Tester\TestCase {
 		);
 	}
 
-	public function testNamePartOfNamespace() {
+	public function testNameAsPartOfNamespace() {
 		Assert::same(
 			'xmlns:xsl="http://www.w3.org/1999/XSL/Transform"',
 			(new Markup\SafeAttribute('xmlns:xsl', 'http://www.w3.org/1999/XSL/Transform'))->pair()
 		);
 	}
 
-	public function testPassedInvalidAttribute() {
+	public function testPassedUnknownAttribute() {
 		Assert::same(
 			'foo="bar"',
 			(new Markup\SafeAttribute('foo', 'bar'))->pair()

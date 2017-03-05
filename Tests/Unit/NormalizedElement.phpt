@@ -72,7 +72,7 @@ final class NormalizedElement extends Tester\TestCase {
 		);
 	}
 
-	public function testSingleTagWithoutAttributes() {
+	public function testEmptyTagWithoutAttributes() {
 		Assert::same(
 			'<hr/>',
 			(new Markup\NormalizedElement(
@@ -82,7 +82,7 @@ final class NormalizedElement extends Tester\TestCase {
 		);
 	}
 
-	public function testSingleTagWithAttributes() {
+	public function testEmptyTagWithAttributes() {
 		Assert::same(
 			'<hr class="cool"/>',
 			(new Markup\NormalizedElement(
