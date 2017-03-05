@@ -2,6 +2,9 @@
 declare(strict_types = 1);
 namespace Klapuch\Markup;
 
+/**
+ * Valid XML, HTML tag
+ */
 final class ValidTag implements Tag {
 	private $name;
 	private $attributes;
