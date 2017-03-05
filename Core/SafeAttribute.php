@@ -3,9 +3,9 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * Attribute in a HTML format
+ * XSS safe attribute
  */
-final class HtmlAttribute implements Attribute {
+final class SafeAttribute implements Attribute {
 	private const INVALID_ATTRIBUTE = '';
 	private $attribute;
 	private $value;

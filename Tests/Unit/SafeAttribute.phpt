@@ -11,25 +11,25 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-final class HtmlAttribute extends Tester\TestCase {
+final class SafeAttribute extends Tester\TestCase {
 	public function testPassedValidAttribute() {
 		Assert::same(
 			'type="text"',
-			(new Markup\HtmlAttribute('type', 'text'))->pair()
+			(new Markup\SafeAttribute('type', 'text'))->pair()
 		);
 	}
 
 	public function testPassedInvalidAttribute() {
 		Assert::same(
 			'foo="bar"',
-			(new Markup\HtmlAttribute('foo', 'bar'))->pair()
+			(new Markup\SafeAttribute('foo', 'bar'))->pair()
 		);
 	}
 
 	public function testUnitedAttributeName() {
 		Assert::same(
 			'kůň_hihi="bar"',
-			(new Markup\HtmlAttribute('KŮŇ_Hihi', 'bar'))->pair()
+			(new Markup\SafeAttribute('KŮŇ_Hihi', 'bar'))->pair()
 		);
 	}
 
@@ -39,35 +39,35 @@ final class HtmlAttribute extends Tester\TestCase {
 	public function testEmptyAttributes(string $attribute, string $value) {
 		Assert::same(
 			'',
-			(new Markup\HtmlAttribute($attribute, $value))->pair()
+			(new Markup\SafeAttribute($attribute, $value))->pair()
 		);
 	}
 
 	public function testPassedNumericAttribute() {
 		Assert::same(
 			'0="foo"',
-			(new Markup\HtmlAttribute('0', 'foo'))->pair()
+			(new Markup\SafeAttribute('0', 'foo'))->pair()
 		);
 	}
 
 	public function testPassedNumericValueAttribute() {
 		Assert::same(
 			'foo="0"',
-			(new Markup\HtmlAttribute('foo', '0'))->pair()
+			(new Markup\SafeAttribute('foo', '0'))->pair()
 		);
 	}
 
 	public function testEnabledXSSProtectionForValue() {
 		Assert::same(
 			'foo="&lt;&quot;&amp;&apos;&gt;"',
-			(new Markup\HtmlAttribute('foo', '<"&\'>'))->pair()
+			(new Markup\SafeAttribute('foo', '<"&\'>'))->pair()
 		);
 	}
 
 	public function testDisabledXSSProtectionForName() {
 		Assert::same(
 			'<>="foo"',
-			(new Markup\HtmlAttribute('<>', 'foo'))->pair()
+			(new Markup\SafeAttribute('<>', 'foo'))->pair()
 		);
 	}
 
@@ -85,4 +85,4 @@ final class HtmlAttribute extends Tester\TestCase {
 	}
 }
 
-(new HtmlAttribute())->run();
+(new SafeAttribute())->run();
