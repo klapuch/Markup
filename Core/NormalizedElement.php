@@ -17,7 +17,7 @@ final class NormalizedElement implements Element {
 	public function markup(): string {
 		return trim(
 			$this->withoutDeclaration(
-				(new \SimpleXMLElement(
+				@(new \SimpleXMLElement(
 					$this->tag->start()
 					. $this->children->markup()
 					. $this->tag->end()

@@ -32,6 +32,16 @@ final class NormalizedElement extends Tester\TestCase {
 		);
 	}
 
+	public function testNormalizedWithinNamespace() {
+		Assert::same(
+			'<xsl:attribute>Paragraph</xsl:attribute>',
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('xsl:attribute', 'xsl:attribute'),
+				new Markup\FakeElement('Paragraph')
+			))->markup()
+		);
+	}
+
 	public function testNestedElement() {
 		Assert::same(
 			'<p><em>foo</em></p>',
