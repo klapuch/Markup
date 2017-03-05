@@ -7,11 +7,11 @@ namespace Klapuch\Markup;
  */
 final class ValidTag implements Tag {
 	private $name;
-	private $attributes;
+	private $attribute;
 
-	public function __construct(string $name, Attributes $attributes) {
+	public function __construct(string $name, Attribute $attribute) {
 		$this->name = $name;
-		$this->attributes = $attributes;
+		$this->attribute = $attribute;
 	}
 
 	public function start(): string {
@@ -22,7 +22,7 @@ final class ValidTag implements Tag {
 		}
 		return sprintf(
 			'<%s>',
-			$this->name . $this->withSpace($this->attributes->pairs())
+			$this->name . $this->withSpace($this->attribute->pair())
 		);
 	}
 

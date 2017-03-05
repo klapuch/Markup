@@ -3,9 +3,9 @@ declare(strict_types = 1);
 namespace Klapuch\Markup;
 
 /**
- * Attributes in a HTML format
+ * Concatenated attributes
  */
-final class HtmlAttributes implements Attributes {
+final class ConcatenatedAttributes implements Attribute {
 	private const EMPTY_PAIRS = [];
 	private const SEPARATOR = ' ';
 	private $attributes;
@@ -14,7 +14,7 @@ final class HtmlAttributes implements Attributes {
 		$this->attributes = $attributes;
 	}
 
-	public function pairs(): string {
+	public function pair(): string {
 		return implode(
 			self::SEPARATOR,
 			array_map(
