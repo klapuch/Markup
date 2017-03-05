@@ -5,7 +5,7 @@ namespace Klapuch\Markup;
 /**
  * Concatenated attributes
  */
-final class ConcatenatedAttributes implements Attribute {
+final class ConcatenatedAttribute implements Attribute {
 	private const EMPTY_PAIRS = [];
 	private const SEPARATOR = ' ';
 	private $attributes;

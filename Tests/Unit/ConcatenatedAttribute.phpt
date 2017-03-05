@@ -11,11 +11,11 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-final class ConcatenatedAttributes extends Tester\TestCase {
+final class ConcatenatedAttribute extends Tester\TestCase {
 	public function testMatchingLastDuplication() {
 		Assert::same(
 			'type="email" name="surname" class="surname"',
-			(new Markup\ConcatenatedAttributes(
+			(new Markup\ConcatenatedAttribute(
 				new Markup\FakeAttribute('type="text"'), // repetitive attribute
 				new Markup\FakeAttribute('name="surname"'), // repetitive value
 				new Markup\FakeAttribute('class="surname"'), // repetitive value
@@ -28,20 +28,20 @@ final class ConcatenatedAttributes extends Tester\TestCase {
 	public function testSeparators() {
 		Assert::same(
 			'type="text"',
-			(new Markup\ConcatenatedAttributes(
+			(new Markup\ConcatenatedAttribute(
 				new Markup\FakeAttribute('type="text"')
 			))->pair()
 		);
 		Assert::same(
 			'type="text" name="surname"',
-			(new Markup\ConcatenatedAttributes(
+			(new Markup\ConcatenatedAttribute(
 				new Markup\FakeAttribute('type="text"'),
 				new Markup\FakeAttribute('name="surname"')
 			))->pair()
 		);
 		Assert::same(
 			'type="text" name="surname" required="true" nested="foo=bar"',
-			(new Markup\ConcatenatedAttributes(
+			(new Markup\ConcatenatedAttribute(
 				new Markup\FakeAttribute('type="text"'),
 				new Markup\FakeAttribute('name="surname"'),
 				new Markup\FakeAttribute('required="true"'),
@@ -51,4 +51,4 @@ final class ConcatenatedAttributes extends Tester\TestCase {
 	}
 }
 
-(new ConcatenatedAttributes())->run();
+(new ConcatenatedAttribute())->run();
