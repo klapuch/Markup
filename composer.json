@@ -13,7 +13,8 @@
   ],
   "require": {
 	"php": ">=7.1",
-	"ext-mbstring": "*"
+	"ext-mbstring": "*",
+	"ext-simplexml": "*"
   },
   "require-dev": {
 	"nette/tester": "^1.7",
