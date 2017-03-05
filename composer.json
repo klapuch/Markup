@@ -20,7 +20,9 @@
 	"ext-simplexml": "*",
 	"ext-dom": "*",
 	"object-calisthenics/phpcs-calisthenics-rules": "^2.0",
-	"sebastian/phpcpd": "*"
+	"sebastian/phpcpd": "^2.0",
+	"phpstan/phpstan": "^0.6.4",
+	"jakub-onderka/php-parallel-lint": "^0.9.2"
   },
   "autoload": {
 	"psr-4": {
@@ -28,5 +30,20 @@
 		"Core/"
 	  ]
 	}
-  }
+  },
+	"scripts": {
+		"lint": "parallel-lint -e php,phpt Core Tests",
+		"phpcpd": "phpcpd Core",
+		"phpstan": "phpstan analyze -l 5 -c phpstan.neon Core Tests",
+		"phpcs": "phpcs --standard=ruleset.xml --extensions=php,phpt --encoding=utf-8 --tab-width=4 -sp Core",
+		"test": "tester -o console -s -p php-cgi -c Tests/php.ini Tests/",
+		"bfc": [
+			"@composer update",
+			"@lint",
+			"@phpcpd",
+			"@phpstan",
+			"@phpcs",
+			"@test"
+		]
+	}
 }
