@@ -19,6 +19,13 @@ final class SafeAttribute extends Tester\TestCase {
 		);
 	}
 
+	public function testNamePartOfNamespace() {
+		Assert::same(
+			'xmlns:xsl="http://www.w3.org/1999/XSL/Transform"',
+			(new Markup\SafeAttribute('xmlns:xsl', 'http://www.w3.org/1999/XSL/Transform'))->pair()
+		);
+	}
+
 	public function testPassedInvalidAttribute() {
 		Assert::same(
 			'foo="bar"',

@@ -25,6 +25,16 @@ final class ConcatenatedAttribute extends Tester\TestCase {
 		);
 	}
 
+	public function testWithNamespace() {
+		Assert::same(
+			'version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"',
+			(new Markup\ConcatenatedAttribute(
+				new Markup\FakeAttribute('version="1.0"'), 
+				new Markup\FakeAttribute('xmlns:xsl="http://www.w3.org/1999/XSL/Transform"')
+			))->pair()
+		);
+	}
+
 	public function testSeparators() {
 		Assert::same(
 			'type="text"',

@@ -42,6 +42,16 @@ final class NormalizedElement extends Tester\TestCase {
 		);
 	}
 
+	public function testNormalizedXslDeclaration() {
+		Assert::same(
+			'<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:element name="foo"/></xsl:stylesheet>',
+			(new Markup\NormalizedElement(
+				new Markup\FakeTag('xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"', 'xsl:stylesheet'),
+				new Markup\FakeElement('<xsl:element name="foo"/>')
+			))->markup()
+		);
+	}
+
 	public function testNestedElement() {
 		Assert::same(
 			'<p><em>foo</em></p>',
