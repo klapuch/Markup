@@ -11,15 +11,15 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-final class HtmlTag extends Tester\TestCase {
+final class ValidTag extends Tester\TestCase {
 	public function testInvolvedAttributes() {
-		$tag = new Markup\HtmlTag('p', new Markup\FakeAttributes('class="danger"'));
+		$tag = new Markup\ValidTag('p', new Markup\FakeAttributes('class="danger"'));
 		Assert::same('<p class="danger">', $tag->start());
 		Assert::same('</p>', $tag->end());
 	}
 
-	public function testXmlTag() {
-		$tag = new Markup\HtmlTag(
+	public function testNamespaceTag() {
+		$tag = new Markup\ValidTag(
 			'xsl:value-of',
 			new Markup\FakeAttributes('select="//p"')
 		);
@@ -31,7 +31,7 @@ final class HtmlTag extends Tester\TestCase {
 	 * @dataProvider invalidTags
 	 */
 	public function testThrowingOnInvalidTags(string $name) {
-		$tag = new Markup\HtmlTag($name, new Markup\FakeAttributes(''));
+		$tag = new Markup\ValidTag($name, new Markup\FakeAttributes(''));
 		Assert::exception(
 			function() use ($tag) {
 				$tag->start();
@@ -49,7 +49,7 @@ final class HtmlTag extends Tester\TestCase {
 	}
 
 	public function testNoAttributes() {
-		$tag = new Markup\HtmlTag('p', new Markup\FakeAttributes(''));
+		$tag = new Markup\ValidTag('p', new Markup\FakeAttributes(''));
 		Assert::same('<p>', $tag->start());
 		Assert::same('</p>', $tag->end());
 	}
@@ -65,4 +65,4 @@ final class HtmlTag extends Tester\TestCase {
 	}
 }
 
-(new HtmlTag())->run();
+(new ValidTag())->run();
