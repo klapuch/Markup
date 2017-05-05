@@ -16,7 +16,7 @@ final class SafeAttribute implements Attribute {
 	}
 
 	public function pair(): string {
-		if($this->omitted($this->attribute) || $this->omitted($this->value))
+		if ($this->omitted($this->attribute) || $this->omitted($this->value))
 			return self::INVALID_ATTRIBUTE;
 		return sprintf(
 			'%s="%s"',

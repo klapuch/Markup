@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 /**
  * @testCase
  * @phpVersion > 7.1
@@ -29,7 +30,7 @@ final class ConcatenatedAttribute extends Tester\TestCase {
 		Assert::same(
 			'version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"',
 			(new Markup\ConcatenatedAttribute(
-				new Markup\FakeAttribute('version="1.0"'), 
+				new Markup\FakeAttribute('version="1.0"'),
 				new Markup\FakeAttribute('xmlns:xsl="http://www.w3.org/1999/XSL/Transform"')
 			))->pair()
 		);

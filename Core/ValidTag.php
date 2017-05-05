@@ -15,7 +15,7 @@ final class ValidTag implements Tag {
 	}
 
 	public function start(): string {
-		if(!$this->valid($this->name)) {
+		if (!$this->valid($this->name)) {
 			throw new \InvalidArgumentException(
 				'Empty or numeric start tag is not allowed'
 			);
@@ -27,7 +27,7 @@ final class ValidTag implements Tag {
 	}
 
 	public function end(): string {
-		if(!$this->valid($this->name)) {
+		if (!$this->valid($this->name)) {
 			throw new \InvalidArgumentException(
 				'Empty or numeric end tag is not allowed'
 			);
